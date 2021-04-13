@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import bodyParser from 'body-parser';
 
 import React from 'react';
 import express from 'express';
@@ -7,9 +8,10 @@ import ReactDOMServer from 'react-dom/server';
 
 import App from '../src/App';
 
-const PORT = process.env.PORT || 3006;
+const PORT = 3000;
 const app = express();
 
+app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
   const app = ReactDOMServer.renderToString(<App />);
@@ -24,6 +26,13 @@ app.get('/', (req, res) => {
     return res.send(
       data.replace('<div id="root"></div>', `<div id="root">${app}</div>`)
     );
+  });
+});
+
+app.post('/login', (req,res) => {
+  console.log(req.body)
+  res.json({
+    name: req.body
   });
 });
 
