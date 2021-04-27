@@ -83,8 +83,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function GridPerson({ person }) {
+function GridPerson({person}) {
   const classes = useStyles();
+
+  const [requester_firstname, setRequester_firstname] = React.useState("");
+  const [requester_email, setRequester_email] = React.useState("");
+  const [requester_subject, setRequester_subject] = React.useState("");
 
   const [open, setOpen] = React.useState(false);
 
@@ -106,6 +110,23 @@ function GridPerson({ person }) {
   const connectButtonHandleClose = () => {
     setConnectButtonOpen(false);
   };
+
+  const func1 = async () =>{
+
+    const body = {
+      requester_firstname: requester_firstname,
+      consultant_firstname: person.name,
+      requester_subject: requester_subject,
+      requester_email: requester_email,
+      school_name: person.school_name,
+    }
+
+    await fetch('/login', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {'Content-Type': 'application/json'},
+    });
+  }
 
   return (
     <Grid item id={person.id} xs={12} sm={6} md={4}>
@@ -151,6 +172,8 @@ function GridPerson({ person }) {
             id="name"
             label="Full Name"
             fullWidth
+            value={requester_firstname}
+            onChange={(event) => setRequester_firstname(event.target.value)}
           />
           <TextField
             autoFocus
@@ -159,6 +182,17 @@ function GridPerson({ person }) {
             label="Email Address"
             type="email"
             fullWidth
+            value={requester_email}
+            onChange={(event) => setRequester_email(event.target.value)}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="subject"
+            label="Subject"
+            fullWidth
+            value={requester_subject}
+            onChange={(event) => setRequester_subject(event.target.value)}
           />
         </DialogContent>
         <DialogActions>
@@ -169,6 +203,7 @@ function GridPerson({ person }) {
             onClick={() => {
               handleClose(person.name);
               connectButtonHandleOpen();
+              func1();
             }}
             color="primary"
           >
@@ -228,24 +263,28 @@ function ThemedApp() {
       id: "jonathanshi",
       logo: logo,
       name: "Jonathan Shi",
+      school_name: "UCLA",
       description: "Junior at UCLA"
     },
     {
       id: "waylenlam",
       logo: logo,
       name: "Waylen Lam",
+      school_name: "UCLA",
       description: "Senior at UCLA"
     },
     {
       id: "vivianlam",
       logo: logo,
       name: "Vivian Lam",
+      school_name: "Harvey Mudd",
       description: "Junior at Harvey Mudd"
     },
     {
       id: "fontannayee",
       logo: logo,
       name: "Fontanna Yee",
+      school_name: "UCLA",
       description: "Junior at UCLA"
     }
   ];
@@ -295,19 +334,8 @@ function ThemedApp() {
 // export default App;
 
 
-const Home = (props) => {
+const App = (props) => {
   const classes = useStyles();
-  const func1 = async () =>{
-
-    const body = {
-      name: "austin"
-    }
-    await fetch('/login', {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {'Content-Type': 'application/json'},
-    });
-  }
 
   return (
     <div className={classes.app}>
@@ -316,5 +344,5 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+export default App;
 
