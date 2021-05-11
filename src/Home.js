@@ -10,6 +10,8 @@ import {
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -43,11 +45,11 @@ import logo from "./images/logo.svg";
 import jonathanshi from "./images/jshi2.png";
 
 const appTheme = createMuiTheme({
-  typography: {
-    fontFamily: [
-      'Nunito+Sans',
-    ].join(','),
-  },
+  // typography: {
+  //   fontFamily: [
+  //     'Nunito+Sans',
+  //   ].join(','),
+  // },
   palette: {
     primary: {
       main: blue[400]
@@ -64,6 +66,9 @@ const useStyles = makeStyles(theme => ({
   },
   app: {
     textAlign: "left"
+  },
+  container: {
+    alignItems: 'center',
   },
   appBar: {
     backgroundColor: "#282828",
@@ -90,6 +95,7 @@ const useStyles = makeStyles(theme => ({
     transform: "rotate(180deg)"
   },
   title: {
+    textAlign: 'center',
   }
 }));
 
@@ -327,19 +333,143 @@ function ThemedApp(props) {
 
   return (
     <ThemeProvider theme={appTheme}>
-      <Container maxWidth="lg">
-
-        <Typography
-        className={classes.title}
-        variant="h4"
+      <Container maxWidth="lg" className={classes.container}>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          spacing={4}
+        >
+          <Grid item classes={{ root: classes.title }} className={classes.title}>
+          <Typography
+          variant="h3"
+          align="center"
         >
           Get the inside scoop on how to get into your dream college!
         </Typography>
+          </Grid>
+        </Grid>
 
         <Grid
           container
           direction="row"
-          justify="space"
+          justify="space-around"
+          alignItems="center"
+          spacing={4}
+        >
+          <Grid>
+            <Typography>
+              UCLA
+            </Typography>
+          </Grid>
+
+          <Grid>
+            <Typography>
+              UCLA
+            </Typography>
+          </Grid>
+
+          <Grid>
+            <Typography>
+              UCLA
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Box display="flex" flexDirection="column" alignItems="center" pt={4}>
+
+          <Box>
+            <Typography
+              variant="h4"
+              align="center"
+            >
+              Just $5 per call!
+            </Typography>
+          </Box>
+
+          <Box>
+            <Typography
+              variant="body1"
+              align="center"
+            >
+              calls starting at minimum of 5 minutes
+            </Typography>
+          </Box>
+        
+        </Box>
+
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="flex-start"
+          spacing={4}
+        >
+
+          <Grid
+            item
+            container
+            direction="column"
+            justify="flex-start"
+            alignItems="center"
+            xs={12}
+            sm={4}
+          >
+            <Typography>
+              One
+            </Typography>
+
+            <Typography variant="h6">
+              Pick a consultant
+            </Typography>
+
+            <Typography variant="h4">
+              Icon
+            </Typography>
+
+            <Typography variant="body2">
+              Lorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum
+            </Typography>
+
+          </Grid>
+
+          <Grid
+            item
+            container
+            direction="column"
+            justify="flex-start"
+            alignItems="center"
+            xs={12}
+            sm={4}
+          >
+            <Typography>
+              Two
+            </Typography>
+
+            <Typography variant="h6">
+              Pick a consultant
+            </Typography>
+
+            <Typography variant="h4">
+              Icon
+            </Typography>
+
+            <Typography variant="body2">
+              Lorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum
+            </Typography>
+
+          </Grid>
+          
+
+        </Grid>
+
+        
+
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
           alignItems="flex-start"
           spacing={4}
           className={classes.gridthing}
