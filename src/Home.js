@@ -1,21 +1,25 @@
-
 import React from "react";
+import clsx from "clsx";
+
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider
+} from "@material-ui/core/styles";
+
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
-
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import clsx from "clsx";
 import Container from "@material-ui/core/Container";
 import CardHeader from "@material-ui/core/CardHeader";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -24,19 +28,26 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import {
-  makeStyles,
-  createMuiTheme,
-  ThemeProvider
-} from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import Slide from "@material-ui/core/Slide";
 
+import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 import blue from "@material-ui/core/colors/blue";
 import grey from "@material-ui/core/colors/grey";
-import logo from "./logo.svg";
-// import "./App.css";
+import logo from "./images/logo.svg";
+
+import jonathanshi from "./images/jshi2.png";
 
 const appTheme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'Nunito+Sans',
+    ].join(','),
+  },
   palette: {
     primary: {
       main: blue[400]
@@ -44,7 +55,7 @@ const appTheme = createMuiTheme({
     secondary: {
       main: "#f4FFFFFF"
     }
-  }
+  },
 });
 
 const useStyles = makeStyles(theme => ({
@@ -59,10 +70,7 @@ const useStyles = makeStyles(theme => ({
     color: "#5DD1F1"
   },
   gridthing: {
-    marginTop: theme.spacing(2)
-  },
-  title: {
-    flexGrow: 1
+    marginTop: theme.spacing(0)
   },
   paper: {
     width: theme.spacing(25),
@@ -80,10 +88,24 @@ const useStyles = makeStyles(theme => ({
   },
   expandOpen: {
     transform: "rotate(180deg)"
+  },
+  title: {
   }
 }));
 
-function GridPerson({person}) {
+// copy-pasted from mui demo
+function HideOnScroll(props) {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
+
+function GridPerson({ person }) {
   const classes = useStyles();
 
   const [requester_firstname, setRequester_firstname] = React.useState("");
@@ -111,22 +133,21 @@ function GridPerson({person}) {
     setConnectButtonOpen(false);
   };
 
-  const func1 = async () =>{
-
+  const func1 = async () => {
     const body = {
       requester_firstname: requester_firstname,
       consultant_firstname: person.name,
       requester_subject: requester_subject,
       requester_email: requester_email,
-      school_name: person.school_name,
-    }
+      school_name: person.school_name
+    };
 
-    await fetch('/login', {
-      method: 'POST',
+    await fetch("/login", {
+      method: "POST",
       body: JSON.stringify(body),
-      headers: {'Content-Type': 'application/json'},
+      headers: { "Content-Type": "application/json" }
     });
-  }
+  };
 
   return (
     <Grid item id={person.id} xs={12} sm={6} md={4}>
@@ -140,7 +161,11 @@ function GridPerson({person}) {
               {person.description}
             </Typography>
           </CardContent>
-          <CardMedia component="img" height="200" image={person.logo} />
+          <CardMedia
+            component="img"
+            height="350"
+            image={person.profile_picture}
+          />
         </CardActionArea>
         <CardActions>
           <Button size="small" color="primary" onClick={handleClickOpen}>
@@ -173,7 +198,7 @@ function GridPerson({person}) {
             label="Full Name"
             fullWidth
             value={requester_firstname}
-            onChange={(event) => setRequester_firstname(event.target.value)}
+            onChange={event => setRequester_firstname(event.target.value)}
           />
           <TextField
             autoFocus
@@ -183,7 +208,7 @@ function GridPerson({person}) {
             type="email"
             fullWidth
             value={requester_email}
-            onChange={(event) => setRequester_email(event.target.value)}
+            onChange={event => setRequester_email(event.target.value)}
           />
           <TextField
             autoFocus
@@ -192,7 +217,7 @@ function GridPerson({person}) {
             label="Subject"
             fullWidth
             value={requester_subject}
-            onChange={(event) => setRequester_subject(event.target.value)}
+            onChange={event => setRequester_subject(event.target.value)}
           />
         </DialogContent>
         <DialogActions>
@@ -234,7 +259,7 @@ function GridPerson({person}) {
   );
 }
 
-function ThemedApp() {
+function ThemedApp(props) {
   const classes = useStyles();
 
   const [expanded1, setExpanded1] = React.useState(false);
@@ -261,7 +286,9 @@ function ThemedApp() {
   const collegepeople = [
     {
       id: "jonathanshi",
-      logo: logo,
+      logo: jonathanshi,
+      profile_picture:
+        "https://d2gr0dan0snfpj.cloudfront.net/files/9roEHL0zGZ3ZvWhRh-original.png",
       name: "Jonathan Shi",
       school_name: "UCLA",
       description: "Junior at UCLA"
@@ -269,6 +296,8 @@ function ThemedApp() {
     {
       id: "waylenlam",
       logo: logo,
+      profile_picture:
+        "https://d2gr0dan0snfpj.cloudfront.net/attachments/ke7AOoHUmQWrWA_Yj0DPm..jpg",
       name: "Waylen Lam",
       school_name: "UCLA",
       description: "Senior at UCLA"
@@ -298,13 +327,15 @@ function ThemedApp() {
 
   return (
     <ThemeProvider theme={appTheme}>
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="overline">College Students</Typography>
-        </Toolbar>
-      </AppBar>
-
       <Container maxWidth="lg">
+
+        <Typography
+        className={classes.title}
+        variant="h4"
+        >
+          Get the inside scoop on how to get into your dream college!
+        </Typography>
+
         <Grid
           container
           direction="row"
@@ -318,6 +349,22 @@ function ThemedApp() {
           ))}
         </Grid>
       </Container>
+
+
+
+
+      {/* <React.Fragment>
+        <CssBaseline />
+        <HideOnScroll {...props}>
+          <AppBar className={classes.appBar}>
+            <Toolbar className={classes.toolbar}>
+            </Toolbar>
+          </AppBar>
+        </HideOnScroll>
+        <Toolbar />
+
+      </React.Fragment> */}
+
     </ThemeProvider>
   );
 }
@@ -333,8 +380,7 @@ function ThemedApp() {
 
 // export default App;
 
-
-const App = (props) => {
+const App = props => {
   const classes = useStyles();
 
   return (
@@ -345,4 +391,3 @@ const App = (props) => {
 };
 
 export default App;
-

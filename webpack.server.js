@@ -27,7 +27,15 @@ module.exports = {
                 encoding: 'base64'
             }
         }
-    }
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
     ]
   }
 };
