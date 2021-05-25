@@ -324,13 +324,6 @@ function ThemedApp(props) {
     }
   ];
 
-  const highschoolpeople = [
-    {
-      fullname: "bob marks",
-      email: "bobmarks@gmail.com"
-    }
-  ];
-
   return (
     <ThemeProvider theme={appTheme}>
       <Container maxWidth="lg" className={classes.container}>
@@ -339,42 +332,54 @@ function ThemedApp(props) {
           direction="row"
           justify="center"
           alignItems="center"
-          spacing={4}
         >
           <Grid item classes={{ root: classes.title }} className={classes.title}>
-          <Typography
-          variant="h3"
-          align="center"
-        >
-          Get the inside scoop on how to get into your dream college!
-        </Typography>
+            <Typography
+            variant="h4"
+            align="center"
+            >
+              Get the inside scoop on how to get into your dream college!
+            </Typography>
           </Grid>
         </Grid>
 
         <Grid
           container
           direction="row"
-          justify="space-around"
+          justify="space-evenly"
           alignItems="center"
           spacing={4}
         >
-          <Grid>
-            <Typography>
-              UCLA
-            </Typography>
+          <Grid item xs={4}>
+            <Card className={classes.root} variant="outlined">
+              <CardMedia
+                component="img"
+                height="100"
+                image={'https://www.drought.gov/sites/default/files/hero/partners/UCLA-logo-blue.png'}
+              />
+            </Card>
           </Grid>
 
-          <Grid>
-            <Typography>
-              UCLA
-            </Typography>
+          <Grid xs={4}>
+            <Card className={classes.root} variant="outlined">
+              <CardMedia
+                component="img"
+                height="100"
+                image={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWAmw_MoTwzhUhUJMBjJF23iASoR6Ljc7vMIpuQrcvrcDR-YVDQAr4j7DFBwKREwblIA&usqp=CAU'}
+              />
+            </Card>
           </Grid>
 
-          <Grid>
-            <Typography>
-              UCLA
-            </Typography>
+          <Grid xs={4}>
+            <Card className={classes.root} variant="outlined">
+              <CardMedia
+                component="img"
+                height="100"
+                image={'https://mdtoday.com/wp-content/uploads/2014/11/ucsd-logo-1.jpg'}
+              />
+            </Card>
           </Grid>
+
         </Grid>
 
         <Box display="flex" flexDirection="column" alignItems="center" pt={4}>
@@ -407,7 +412,7 @@ function ThemedApp(props) {
           spacing={4}
         >
 
-          <Grid
+          {/* <Grid
             item
             container
             direction="column"
@@ -417,22 +422,27 @@ function ThemedApp(props) {
             sm={4}
           >
             <Typography>
-              One
-            </Typography>
-
-            <Typography variant="h6">
               Pick a consultant
             </Typography>
-
-            <Typography variant="h4">
-              Icon
-            </Typography>
-
-            <Typography variant="body2">
-              Lorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum
-            </Typography>
-
+            <Card className={classes.root}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image="/static/images/cards/contemplative-reptile.jpg"
+                  title="Contemplative Reptile"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Step one
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    Choose from a wide array of consultants from UCLA, HMC, and more!
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>  */}
           </Grid>
+
 
           <Grid
             item
