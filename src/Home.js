@@ -44,6 +44,14 @@ import logo from "./images/logo.svg";
 
 import jonathanshi from "./images/jshi2.png";
 
+import pickConsultant from "./images/pickConsultant.png"
+import shareYourGoals from "./images/shareYourGoals.png"
+import weConnect from "./images/weConnect.png"
+
+import oneIcon from "./images/1.png"
+import twoIcon from "./images/2.png"
+import threeIcon from "./images/3.png"
+
 const appTheme = createMuiTheme({
   // typography: {
   //   fontFamily: [
@@ -96,11 +104,31 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     textAlign: 'center',
+    fontWeight: 800
+  },
+  universityImage: {
+    width: '100%',
+    textAlign: 'center'
+  },
+  instructionsImage:{
+    height: '100px'
+  },
+  numberIcon: {
+    height: '30px'
+  },
+  browseTitle: {
+    fontWeight: 500
+  },
+  gridRestraint: {
+    width: '70%'
+  },
+  browseTitleContainer: {
+    marginTop: theme.spacing(9)
   }
 }));
 
 // copy-pasted from mui demo
-function HideOnScroll(props) {
+function HideOnScroll(props) {  
   const { children, window } = props;
   const trigger = useScrollTrigger({ target: window ? window() : undefined });
 
@@ -321,6 +349,27 @@ function ThemedApp(props) {
       name: "Fontanna Yee",
       school_name: "UCLA",
       description: "Junior at UCLA"
+    },
+    {
+      id: "calebkang",
+      logo: logo,
+      name: "Caleb Kang",
+      school_name: "UCSD",
+      description: "Junior at UCSD"
+    },
+    {
+      id: "kelalaniluong-kha",
+      logo: logo,
+      name: "Kelalani Luong-Kha",
+      school_name: "UCLA",
+      description: "Junior at UCLA"
+    },
+    {
+      id: "alvinvo",
+      logo: logo,
+      name: "Alvin Vo",
+      school_name: "UCLA",
+      description: "Junior at UCLA"
     }
   ];
 
@@ -333,10 +382,11 @@ function ThemedApp(props) {
           justify="center"
           alignItems="center"
         >
-          <Grid item classes={{ root: classes.title }} className={classes.title}>
+          <Grid item>
             <Typography
             variant="h4"
             align="center"
+            className={classes.title}
             >
               Get the inside scoop on how to get into your dream college!
             </Typography>
@@ -350,39 +400,24 @@ function ThemedApp(props) {
           alignItems="center"
           spacing={4}
         >
-          <Grid item xs={4}>
-            <Card className={classes.root} variant="outlined">
-              <CardMedia
-                component="img"
-                height="100"
-                image={'https://www.drought.gov/sites/default/files/hero/partners/UCLA-logo-blue.png'}
-              />
-            </Card>
+          
+          <Grid item container xs={4} justify="center" alignItems="center">
+            <Grid item className={classes.gridRestraint}>
+              <img className={classes.universityImage} src="https://www.drought.gov/sites/default/files/hero/partners/UCLA-logo-blue.png"/>
+            </Grid>
           </Grid>
 
           <Grid xs={4}>
-            <Card className={classes.root} variant="outlined">
-              <CardMedia
-                component="img"
-                height="100"
-                image={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWAmw_MoTwzhUhUJMBjJF23iASoR6Ljc7vMIpuQrcvrcDR-YVDQAr4j7DFBwKREwblIA&usqp=CAU'}
-              />
-            </Card>
+            <img className={classes.universityImage} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWAmw_MoTwzhUhUJMBjJF23iASoR6Ljc7vMIpuQrcvrcDR-YVDQAr4j7DFBwKREwblIA&usqp=CAU"/>
           </Grid>
 
           <Grid xs={4}>
-            <Card className={classes.root} variant="outlined">
-              <CardMedia
-                component="img"
-                height="100"
-                image={'https://mdtoday.com/wp-content/uploads/2014/11/ucsd-logo-1.jpg'}
-              />
-            </Card>
+            <img className={classes.universityImage} src='https://mdtoday.com/wp-content/uploads/2014/11/ucsd-logo-1.jpg' />
           </Grid>
 
         </Grid>
 
-        <Box display="flex" flexDirection="column" alignItems="center" pt={4}>
+        <Box display="flex" flexDirection="column" alignItems="center" pt={2} pb={6}>
 
           <Box>
             <Typography
@@ -397,6 +432,7 @@ function ThemedApp(props) {
             <Typography
               variant="body1"
               align="center"
+              color='textSecondary'
             >
               calls starting at minimum of 5 minutes
             </Typography>
@@ -412,7 +448,7 @@ function ThemedApp(props) {
           spacing={4}
         >
 
-          {/* <Grid
+          <Grid
             item
             container
             direction="column"
@@ -421,26 +457,19 @@ function ThemedApp(props) {
             xs={12}
             sm={4}
           >
-            <Typography>
+
+            <img className={classes.numberIcon} src={oneIcon}/>
+
+            <Typography variant="h6">
               Pick a consultant
             </Typography>
-            <Card className={classes.root}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image="/static/images/cards/contemplative-reptile.jpg"
-                  title="Contemplative Reptile"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Step one
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    Choose from a wide array of consultants from UCLA, HMC, and more!
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>  */}
+
+            <img className={classes.instructionsImage} src={pickConsultant}/>
+
+            <Typography variant="body2" color='textSecondary'>
+            Choose from a wide array of consultants from UCLA, HMC, and more!
+            </Typography>
+
           </Grid>
 
 
@@ -453,25 +482,60 @@ function ThemedApp(props) {
             xs={12}
             sm={4}
           >
-            <Typography>
-              Two
-            </Typography>
+            <img className={classes.numberIcon} src={twoIcon}/>
 
             <Typography variant="h6">
-              Pick a consultant
+              Share your goals
             </Typography>
 
-            <Typography variant="h4">
-              Icon
-            </Typography>
+            <img className={classes.instructionsImage} src={shareYourGoals}/>
 
-            <Typography variant="body2">
-              Lorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum
+            <Typography variant="body2" color='textSecondary'>
+            Share what topics you would like to discuss with your consultant!
             </Typography>
 
           </Grid>
-          
+          <Grid
+            item
+            container
+            direction="column"
+            justify="flex-start"
+            alignItems="center"
+            xs={12}
+            sm={4}
+          >
+            <img className={classes.numberIcon} src={threeIcon}/>
 
+            <Typography variant="h6">
+              We connect you
+            </Typography>
+
+            <img className={classes.instructionsImage} src={weConnect}/>
+
+            <Typography variant="body2" color='textSecondary'>
+            We will autobook you for a mutually beneficial time!
+            </Typography>
+          </Grid>
+
+        </Grid>
+
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          className={classes.browseTitleContainer}
+          //add spacing or margin to top
+        >
+          <Grid item>
+            <Typography
+            variant="h4"
+            align="center"
+            className={classes.browseTitle}
+            >
+              Browse some top consultants
+            </Typography>
+          </Grid>
         </Grid>
 
         
@@ -517,8 +581,6 @@ function ThemedApp(props) {
 //     </div>
 //   );
 // }
-
-// export default App;
 
 const App = props => {
   const classes = useStyles();
