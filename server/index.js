@@ -55,7 +55,7 @@ async function sendInviteEmail(requestbody) {
   const email = {
     to: requestbody.requester_email,
     from: "college.student.connect@gmail.com",
-    templateId: "d-42d0083f34844b98a9f88feada617fdc",
+    templateId: "d-99b7df016e644601ae451fab725f7c52",
     dynamicTemplateData: { 
       requester_firstname: requestbody.requester_firstname,
       consultant_firstname: requestbody.consultant_firstname,

@@ -354,7 +354,7 @@ function ThemedApp(props) {
   };
   const executeScroll = () => myRef.current.scrollIntoView()
 
-  const collegepeople = [
+  const collegepeople = [ 
     {
       id: "jonathanshi",
       logo: jonathanshi,
