@@ -1,5 +1,5 @@
-import React from "react";
 import clsx from "clsx";
+import React, { useRef } from 'react'
 
 import {
   makeStyles,
@@ -34,6 +34,11 @@ import PropTypes from "prop-types";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -43,6 +48,7 @@ import grey from "@material-ui/core/colors/grey";
 import logo from "./images/logo.svg";
 
 import jonathanshi from "./images/jshi2.png";
+import klani from "./images/klani.jpeg";
 
 import pickConsultant from "./images/pickConsultant.png"
 import shareYourGoals from "./images/shareYourGoals.png"
@@ -124,6 +130,12 @@ const useStyles = makeStyles(theme => ({
   },
   browseTitleContainer: {
     marginTop: theme.spacing(9)
+  },
+  getStartedButton: {
+    marginBottom: theme.spacing(4)
+  },
+  dialogTextField: {
+    paddingTop: theme.spacing(4)
   }
 }));
 
@@ -145,6 +157,7 @@ function GridPerson({ person }) {
   const [requester_firstname, setRequester_firstname] = React.useState("");
   const [requester_email, setRequester_email] = React.useState("");
   const [requester_subject, setRequester_subject] = React.useState("");
+  const [requester_duration, setRequester_duration] = React.useState("")
 
   const [open, setOpen] = React.useState(false);
 
@@ -167,12 +180,18 @@ function GridPerson({ person }) {
     setConnectButtonOpen(false);
   };
 
+  const timeButtonHandleChange = (e) => {
+    setRequester_duration(e.target.value)
+  }
+  
+
   const func1 = async () => {
     const body = {
       requester_firstname: requester_firstname,
       consultant_firstname: person.name,
       requester_subject: requester_subject,
       requester_email: requester_email,
+      requester_duration: requester_duration,
       school_name: person.school_name
     };
 
@@ -181,6 +200,7 @@ function GridPerson({ person }) {
       body: JSON.stringify(body),
       headers: { "Content-Type": "application/json" }
     });
+
   };
 
   return (
@@ -217,14 +237,6 @@ function GridPerson({ person }) {
           Connect with {person.name}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Connect with a student from your dream college for a short 30 minute
-            session where you are available to ask any question you would like.
-          </DialogContentText>
-          <DialogContentText>
-            Some good questions: What camps or extracurriculars did you take
-            that helped you get into the college? How did you prepare for them?
-          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
@@ -244,6 +256,10 @@ function GridPerson({ person }) {
             value={requester_email}
             onChange={event => setRequester_email(event.target.value)}
           />
+          <DialogContentText className={classes.dialogTextField}>
+            What would you like to ask {person.name}? Here are some common questions to ask your consultant: What camps or extracurriculars did you take
+            that helped you get into the college? What did you do to prepare to enter {person.school_name}?
+          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
@@ -253,6 +269,25 @@ function GridPerson({ person }) {
             value={requester_subject}
             onChange={event => setRequester_subject(event.target.value)}
           />
+
+          <DialogContentText className={classes.dialogTextField}>
+            How long would you like to meet with {person.name}? Our team will find the best time that works for both of your schedules.
+          </DialogContentText>
+          <FormControl className={classes.formControl} fullWidth    >
+            <InputLabel id="duration">Duration of Session</InputLabel>
+            <Select
+              labelId="duration"
+              id="duration"
+              value={requester_duration}
+              onChange={timeButtonHandleChange}
+            >
+              <MenuItem value={5}> 5 Minutes –– $5</MenuItem>
+              <MenuItem value={15}>15 Minutes –– $10</MenuItem>
+              <MenuItem value={30}>30 Minutes –– $15</MenuItem>
+              <MenuItem value={60}>60 Minutes –– $25</MenuItem>
+            </Select>
+          </FormControl>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={() => handleClose("")} color="primary">
@@ -295,6 +330,7 @@ function GridPerson({ person }) {
 
 function ThemedApp(props) {
   const classes = useStyles();
+  const myRef = useRef(null)
 
   const [expanded1, setExpanded1] = React.useState(false);
   const handleExpandClick1 = () => {
@@ -316,6 +352,7 @@ function ThemedApp(props) {
     console.log(name);
     setOpen(false);
   };
+  const executeScroll = () => myRef.current.scrollIntoView()
 
   const collegepeople = [
     {
@@ -359,7 +396,7 @@ function ThemedApp(props) {
     },
     {
       id: "kelalaniluong-kha",
-      logo: logo,
+      logo: klani,
       name: "Kelalani Luong-Kha",
       school_name: "UCLA",
       description: "Junior at UCLA"
@@ -441,6 +478,20 @@ function ThemedApp(props) {
         </Box>
 
         <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            className={classes.getStartedButton}
+          >
+          <Grid item>
+            <Button onClick={executeScroll} variant="contained" color="primary">
+              Get Started!
+            </Button>
+          </Grid>
+        </Grid>
+
+        <Grid
           container
           direction="row"
           justify="flex-start"
@@ -516,8 +567,8 @@ function ThemedApp(props) {
             We will autobook you for a mutually beneficial time!
             </Typography>
           </Grid>
-
         </Grid>
+
 
         <Grid
           container
@@ -525,20 +576,18 @@ function ThemedApp(props) {
           justify="center"
           alignItems="center"
           className={classes.browseTitleContainer}
-          //add spacing or margin to top
         >
           <Grid item>
             <Typography
             variant="h4"
             align="center"
             className={classes.browseTitle}
+            ref={myRef}
             >
               Browse some top consultants
             </Typography>
           </Grid>
         </Grid>
-
-        
 
         <Grid
           container

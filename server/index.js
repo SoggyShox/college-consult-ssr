@@ -14,9 +14,25 @@ const PORT = 3000;
 const app = express();
 
 
-sgMail.setApiKey("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")
+sgMail.setApiKey(process.env.send_grid_api_key)
 
 app.use(bodyParser.json());
+
+app.post("/test", (req, res) => {
+
+  res.send("hello")
+});
+
+app.post("/login", (req, res) => {
+  console.log("hello")
+  console.log(req.body);
+  
+  sendInviteEmail(req.body)
+
+  res.send()
+});
+
+
 
 app.get("/", (req, res) => {
   const app = ReactDOMServer.renderToString(<App />);
@@ -34,14 +50,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/login", (req, res) => {
-  console.log(req.body);
-  
-  sendInviteEmail(req.body)
-
-  res.send()
-});
-
 
 async function sendInviteEmail(requestbody) {
   const email = {
@@ -52,7 +60,8 @@ async function sendInviteEmail(requestbody) {
       requester_firstname: requestbody.requester_firstname,
       consultant_firstname: requestbody.consultant_firstname,
       requester_subject: requestbody.requester_subject,
-      school_name: requestbody.school_name,
+      requester_duration: requestbody.requester_duration,
+      school_name: requestbody.school_name
     }
   };
   try{
