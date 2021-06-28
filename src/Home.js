@@ -615,7 +615,6 @@ function ThemedApp(props) {
           </AppBar>
         </HideOnScroll>
         <Toolbar />
-
       </React.Fragment> */}
 
     </ThemeProvider>
