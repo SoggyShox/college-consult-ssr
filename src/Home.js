@@ -30,7 +30,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import PropTypes from "prop-types";
+import PropTypes, { func } from "prop-types";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
@@ -57,6 +57,12 @@ import weConnect from "./images/weConnect.png"
 import oneIcon from "./images/1.png"
 import twoIcon from "./images/2.png"
 import threeIcon from "./images/3.png"
+
+import ReactGA from 'react-ga';
+
+
+const TRACKING_ID = "G-PZX6FZ6ZWF";
+ReactGA.initialize(TRACKING_ID);
 
 const appTheme = createMuiTheme({
   // typography: {
@@ -298,6 +304,14 @@ function GridPerson({ person }) {
               handleClose(person.name);
               connectButtonHandleOpen();
               func1();
+              ReactGA.event({
+                category: 'User',
+                action: 'Requested consultation'
+              });
+              ReactGA.event({
+                category: 'User',
+                action: `Question asked: ${subject}`
+              });
             }}
             color="primary"
           >
@@ -632,6 +646,12 @@ function ThemedApp(props) {
 
 const App = props => {
   const classes = useStyles();
+  React.useEffect(() => {
+    ReactGA.event({
+      category: 'User',
+      action: 'Visited Website'
+    })
+  }, [])
 
   return (
     <div className={classes.app}>
