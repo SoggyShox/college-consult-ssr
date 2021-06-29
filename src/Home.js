@@ -61,7 +61,7 @@ import threeIcon from "./images/3.png"
 import ReactGA from 'react-ga';
 
 
-const TRACKING_ID = "G-PZX6FZ6ZWF";
+const TRACKING_ID = "UA-200753783-1";
 ReactGA.initialize(TRACKING_ID);
 
 const appTheme = createMuiTheme({
