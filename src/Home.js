@@ -310,7 +310,7 @@ function GridPerson({ person }) {
               });
               ReactGA.event({
                 category: 'User',
-                action: `Question asked: ${subject}`
+                action: `Question asked: ${requester_subject}`
               });
             }}
             color="primary"
