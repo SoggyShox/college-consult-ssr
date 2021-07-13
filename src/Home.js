@@ -306,7 +306,8 @@ function GridPerson({ person }) {
               func1();
               ReactGA.event({
                 category: 'User',
-                action: 'Requested consultation'
+                action: 'Requested consultation',
+                label: requester_email
               });
               ReactGA.event({
                 category: 'User',
